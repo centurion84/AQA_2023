@@ -51,7 +51,7 @@ public class BankTest {
 
     @Test(dependsOnMethods = "testCreateAccount")
     public static void testWithdrawWrongNumber() {
-        bank.withdraw(1, 550);
+        bank.withdraw(90, 550);
     }
 
     @Test(dependsOnMethods = "testCreateAccount")
