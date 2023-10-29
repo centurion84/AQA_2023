@@ -30,7 +30,7 @@ class LibrarySystem implements Library {
         List<LibraryMaterial> results = new ArrayList<>();
         for (LibraryMaterial material : materials) {
             if (material.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
-                    (String.valueOf(material.getYear()).contains(keyword)) {
+                    (String.valueOf(material.getYear()).contains(keyword))) {
                 results.add(material);
             }
         }
