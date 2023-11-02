@@ -3,7 +3,7 @@ package homeWork14;
 import homeWork9.ReverseString;
 import org.testng.annotations.Test;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.Assert.assertEquals;
 
 public class ReverseStringTest extends TestBase {
 
