@@ -1,8 +1,19 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="MyTestSuite">
-    <test name="MyTestCase">
+<suite name="MyTestSuite" parallel="methods" thread-count="4">
+    <test name="MyTest">
+        <groups>
+            <run>
+                <include name="PhoneNumberTests"/>
+                <include name="RemoveCharsTests"/>
+                <include name="RemoveSubstringTests"/>
+                <include name="ReverseStringTests"/>
+            </run>
+        </groups>
         <classes>
-            <class name="InitialTest" />
+            <class name="homeWork14.PhoneNumberTest"/>
+            <class name="homeWork14.RemoveCharsTest"/>
+            <class name="homeWork14.RemoveSubstringTest"/>
+            <class name="homeWork14.ReverseStringTest"/>
         </classes>
     </test>
 </suite>
