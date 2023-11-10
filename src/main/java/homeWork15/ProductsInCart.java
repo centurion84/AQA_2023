@@ -12,7 +12,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,33 +20,26 @@ public class ProductsInCart {
     protected static WebDriver driver;
     protected static WebDriverWait wait;
 
-    protected final String pageTitlePath = "//a[@class='Navbar_logo__26S5Y']";
+    protected final String pageTitleClass = "Navbar_logo__26S5Y";
     protected final int firstItem = 1;
     protected final int secondItem = 2;
-    protected final String pricePath = "//div[@id='%s']//div[@class='shelf-item__price']//div[@class='val']//b";
-    protected final String titlePath = "//div[@id='%s']//p[@class='shelf-item__title']";
-    protected final String addButtonPath = "//div[@id='%s']//div[@class='shelf-item__buy-btn']";
+    protected final String itemIdPath = "//div[@id='%s']";
+    protected final String pricePath = itemIdPath + "//div[@class='val']//b";
+    protected final String titlePath = itemIdPath + "//p[@class='shelf-item__title']";
+    protected final String addButtonPath = itemIdPath + "//div[@class='shelf-item__buy-btn']";
 
     protected final String itemFieldPath = "//div[@class='float-cart__shelf-container']//div[@class='shelf-item']";
     protected final String emptyCartViewPath = "//div[@class='float-cart__shelf-container']//p[@class='shelf-empty']";
     protected final String priceCartPath = itemFieldPath + "[%s]//div[@class='shelf-item__price']//p";
-    protected final String titleCartPath = itemFieldPath + "[%s]//div[@class='shelf-item__details']//p[@class='title']";
-    protected final String quantityCartPath = itemFieldPath + "[%s]//div[@class='shelf-item__details']//p[@class='desc']";
-    protected final String cartViewPath = "//div[@class='float-cart float-cart--open']//div[@class='float-cart__content']";
-    protected final String removeItemButtonPath = "//div[@class='float-cart__shelf-container']//div[@class='shelf-item__del']";
-    protected final String totalCartPrice = "//p[@class='sub-price__val']";
-    protected final String closeCartPath = "//div[@class='float-cart float-cart--open']//div[@class='float-cart__close-btn']";
-    protected final String checkoutButtonPath = "//div[contains(@class,'buy-btn') and text()='Checkout']";
+    protected final String titleCartPath = itemFieldPath + "[%s]//p[@class='title']";
+    protected final String quantityCartPath = itemFieldPath + "[%s]//p[@class='desc']";
+    protected final String cartViewClass = "float-cart__content";
+    protected final String removeItemButtonPath = "//div[@class='shelf-item__del']";
+    protected final String totalCartPriceClass = "sub-price__val";
+    protected final String closeCartPath = "//div[@class='float-cart__close-btn']";
+    protected final String checkoutButtonPath = "//div[@class='buy-btn' and text()='Checkout']";
     protected final String totalPriceRegex = "\\$\\s*(\\d+)\\.\\d{2}";
     protected final String quantityCartRegex = "\\bQuantity: (\\d+)\\b";
-
-    public static WebElement findElement(String xpath) {
-        return driver.findElement(By.xpath(xpath));
-    }
-
-    public static List<WebElement> findElements(String xpath) {
-        return driver.findElements(By.xpath(xpath));
-    }
 
     public static void findAndClick(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -76,7 +68,7 @@ public class ProductsInCart {
         driver.manage().window().setSize(new Dimension(1920, 1080));
         driver.get("https://www.bstackdemo.com/");
         wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(pageTitlePath)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(pageTitleClass)));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
     }
 

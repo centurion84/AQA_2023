@@ -28,14 +28,14 @@ public class ProductsInCartTest extends ProductsInCart {
         findAndClickItemElement(addButtonPath, secondItem);
 
         // check that cart has 2 items
-        assertEquals(findElements(itemFieldPath).size(),
+        assertEquals(driver.findElements(By.xpath(itemFieldPath)).size(),
                 2, "Incorrect number of items in cart.");
 
         // check that cart is not empty
         assertTrue(driver.findElements(By.xpath(emptyCartViewPath)).isEmpty(), "Items in cart are empty");
 
         // check that cart is opened
-        WebElement cartDiv = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(cartViewPath)));
+        WebElement cartDiv = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(cartViewClass)));
         assertTrue(cartDiv.isDisplayed(), "Cart is not opened");
 
         // check that first item in cart is correct
@@ -57,12 +57,12 @@ public class ProductsInCartTest extends ProductsInCart {
                 "Incorrect quantity for second item");
 
         // checking for total price
-        assertEquals(extractNumber(findElement(totalCartPrice).getText(), totalPriceRegex),
+        assertEquals(extractNumber(driver.findElement(By.className(totalCartPriceClass)).getText(), totalPriceRegex),
                 Integer.parseInt(price1) + Integer.parseInt(price2),
                 "Incorrect total price in cart");
 
         // looking for button CHECKOUT
-        assertTrue(findElement(checkoutButtonPath).isDisplayed(),
+        assertTrue(driver.findElement(By.xpath(checkoutButtonPath)).isDisplayed(),
                 "Checkout button is not visible.");
     }
 
@@ -95,11 +95,11 @@ public class ProductsInCartTest extends ProductsInCart {
         assertFalse(!itemsInCart.isEmpty() && !emptyCart.getText().isEmpty(), "Cart is not empty");
 
         // checking for total price
-        assertEquals(extractNumber(findElement(totalCartPrice).getText(), totalPriceRegex),
+        assertEquals(extractNumber(driver.findElement(By.className(totalCartPriceClass)).getText(), totalPriceRegex),
                 0,
                 "Total price is not empty");
         // looking for button CHECKOUT
-        assertTrue(findElements(checkoutButtonPath).isEmpty(),
+        assertTrue(driver.findElements(By.xpath(checkoutButtonPath)).isEmpty(),
                 "Checkout button is still visible");
     }
 }
