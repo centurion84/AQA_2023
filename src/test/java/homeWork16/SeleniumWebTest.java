@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import static homeWork16.Selectors.*;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class SeleniumWebTest extends BaseTest {
 
@@ -16,7 +17,10 @@ public class SeleniumWebTest extends BaseTest {
 
         WebElement redBox = wait.until(ExpectedConditions.visibilityOfElementLocated(REDBOX));
 
-        assertEquals(redBox.getAttribute("style"), REDBOX_STYLE, "Redbox style does not match");
+        assertTrue(redBox.getCssValue("width").equals(REDBOX_SIZE) &&
+                        redBox.getCssValue("height").equals(REDBOX_SIZE),
+                "Wrong box size");
+        assertEquals(redBox.getCssValue("background-color"), REDBOX_COLOR, "Wrong box color");
     }
 
     @Test

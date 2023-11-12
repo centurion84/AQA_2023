@@ -17,5 +17,6 @@ public class Selectors {
     public static final By REVEALED = By.id("revealed");
     public static final String EXPECTED_TEXT = "Hello World!";
     public static final String TEST_TEXT_INPUT = "Test text";
-    public static final String REDBOX_STYLE = "width: 150px; height: 150px; background-color: red; border: 1px solid black; margin: 5px;";
+    public static final String REDBOX_SIZE = "150px";
+    public static final String REDBOX_COLOR = "rgba(255, 0, 0, 1)";
 }
