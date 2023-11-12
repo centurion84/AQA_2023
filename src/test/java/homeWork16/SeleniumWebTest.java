@@ -24,7 +24,7 @@ public class SeleniumWebTest extends BaseTest {
     }
 
     @Test
-    public void RevealNewInputTest() {
+    public void revealNewInputTest() {
         driver.get(URL_SELENIUM_PAGE);
         driver.findElement(REVEAL_BUTTON).click();
 
