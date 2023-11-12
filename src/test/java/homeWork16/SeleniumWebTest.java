@@ -11,7 +11,7 @@ import static org.testng.Assert.assertTrue;
 public class SeleniumWebTest extends BaseTest {
 
     @Test
-    public void AddBoxTest() {
+    public void addBoxTest() {
         driver.get(URL_SELENIUM_PAGE);
         driver.findElement(ADD_BUTTON).click();
 
