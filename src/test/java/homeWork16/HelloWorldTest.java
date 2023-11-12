@@ -18,7 +18,7 @@ public class HelloWorldTest extends BaseTest {
     }
 
     @Test
-    public void ElementRenderedAfterTest() {
+    public void elementRenderedAfterTest() {
 
         driver.get(URL_RENDERED_AFTER);
         driver.findElement(START_BUTTON).click();
