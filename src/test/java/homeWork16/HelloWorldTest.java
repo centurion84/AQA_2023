@@ -8,7 +8,7 @@ import static org.testng.Assert.assertEquals;
 
 public class HelloWorldTest extends BaseTest {
     @Test
-    public void ElementHiddenTest() {
+    public void elementHiddenTest() {
 
         driver.get(URL_HIDDEN);
         driver.findElement(START_BUTTON).click();
