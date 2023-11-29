@@ -10,8 +10,8 @@ public class PropsAndFilesTest extends BaseUITest {
     public void testContactUsForm() {
         ContactUsPage contactUsPage = new HomePage(driver)
                 .navigateToContactUs()
-                .fillNameAndEmail()
-                .uploadFile()
+                .fillNameAndEmail(props.getProperty("name"), props.getProperty("email"))
+                .uploadFile(props.getProperty("file"))
                 .submitContactForm();
 
         assertTrue(contactUsPage.isSuccessMessageShown());

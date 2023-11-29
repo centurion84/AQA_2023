@@ -8,10 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.io.File;
 
 public class ContactUsPage extends BasePage {
-    private final TestProperties props = new TestProperties();
-    private final String name = props.getProperty("name");
-    private final String email = props.getProperty("email");
-    private final String absolutePath = new File(props.getProperty("file")).getAbsolutePath();
+
     @FindBy(css = "input[data-qa='name']")
     private WebElement nameField;
 
@@ -32,13 +29,14 @@ public class ContactUsPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public ContactUsPage fillNameAndEmail() {
+    public ContactUsPage fillNameAndEmail(String name, String email) {
         setText(nameField, name);
         setText(emailField, email);
         return this;
     }
 
-    public ContactUsPage uploadFile() {
+    public ContactUsPage uploadFile(String filePath) {
+        String absolutePath = new File(filePath).getAbsolutePath();
         setText(uploadFileBtn, absolutePath);
         return this;
     }
