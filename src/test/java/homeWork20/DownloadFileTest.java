@@ -15,16 +15,19 @@ public class DownloadFileTest extends BaseUITest {
     @Test
     public void csvDownloadTest() {
 
-        new DownloadPage(driver).downloadFile();
-
+        String fileName = props.getProperty("fileName");
+        String downloadFolderPath = props.getProperty("downloadFolderPath");
+        String fileExtension = props.getProperty("fileExt");
         String absoluteFilePath = new File(downloadFolderPath).getAbsolutePath();
+
+        new DownloadPage(driver).downloadFile(fileName);
 
         // wait until file is downloaded
         assertTrue(waitUntilFileIsDownloaded(absoluteFilePath, fileName, 3),
                 "File was not downloaded!");
 
         // Check file extension
-        assertTrue(isExtensionCorrect(absoluteFilePath, fileName, fileExt),
+        assertTrue(isExtensionCorrect(absoluteFilePath, fileName, fileExtension),
                 "File extension is wrong!");
 
         // Check if file is not empty

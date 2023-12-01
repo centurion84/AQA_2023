@@ -16,18 +16,10 @@ public class BaseUITest {
 
     protected WebDriver driver;
     protected TestProperties props;
-    protected String url;
-    protected String downloadFolderPath;
-    protected String fileName;
-    protected String fileExt;
 
     @BeforeClass
     public void setUpClass() {
         props = new TestProperties();
-        url = props.getProperty("url");
-        downloadFolderPath = props.getProperty("downloadFolderPath");
-        fileName = props.getProperty("fileName");
-        fileExt = props.getProperty("fileExt");
     }
 
     @BeforeMethod
@@ -36,12 +28,13 @@ public class BaseUITest {
 
         ChromeOptions options = new ChromeOptions();
         HashMap<String, Object> chromePrefs = new HashMap<>();
-        chromePrefs.put("download.default_directory", new File(downloadFolderPath).getAbsolutePath());
+        chromePrefs.put("download.default_directory",
+                new File(props.getProperty("downloadFolderPath")).getAbsolutePath());
         options.setExperimentalOption("prefs", chromePrefs);
 
         driver = new ChromeDriver(options);
         driver.manage().window().setSize(new Dimension(1920, 1080));
-        driver.get(url);
+        driver.get(props.getProperty("url"));
     }
 
     @AfterMethod
@@ -49,7 +42,7 @@ public class BaseUITest {
         if (driver != null) {
             driver.quit();
         }
-        clearDownloadDirectory(downloadFolderPath);
+        clearDownloadDirectory(props.getProperty("downloadFolderPath"));
     }
 
     public void clearDownloadDirectory(String path) {
