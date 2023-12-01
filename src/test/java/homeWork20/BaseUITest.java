@@ -6,19 +6,32 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
 import java.util.HashMap;
 
 public class BaseUITest {
-    public final String downloadFolderPath = "target/downloads";
-    public final String url = "https://the-internet.herokuapp.com/download";
-    public WebDriver driver;
+
+    protected WebDriver driver;
+    protected TestProperties props;
+    protected String url;
+    protected String downloadFolderPath;
+    protected String fileName;
+    protected String fileExt;
+
+    @BeforeClass
+    public void setUpClass() {
+        props = new TestProperties();
+        url = props.getProperty("url");
+        downloadFolderPath = props.getProperty("downloadFolderPath");
+        fileName = props.getProperty("fileName");
+        fileExt = props.getProperty("fileExt");
+    }
 
     @BeforeMethod
     public void setup() {
-
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
