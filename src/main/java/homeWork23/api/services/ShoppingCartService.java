@@ -10,12 +10,12 @@ public class ShoppingCartService extends BaseService {
 
     public static Response addToCart(Integer userId, Integer bookId) {
         return setRequestSpec()
-                .given().pathParam("userId", String.valueOf(userId)).pathParam("bookId", bookId).post("/ShoppingCart/AddToCart/{userId}/{bookId}");
+                .given().pathParam("getCreatedUserId", String.valueOf(userId)).pathParam("bookId", bookId).post("/ShoppingCart/AddToCart/{getCreatedUserId}/{bookId}");
     }
 
     public static Response getCart(Integer userId) {
         return setRequestSpec()
-                .given().pathParam("userId", String.valueOf(userId)).get("/ShoppingCart/{userId}");
+                .given().pathParam("getCreatedUserId", String.valueOf(userId)).get("/ShoppingCart/{getCreatedUserId}");
     }
 
     public static boolean containsBookIdInCart(List<ShoppingCartResponseDTO> bookItemDTOList, Integer bookId) {
@@ -30,5 +30,11 @@ public class ShoppingCartService extends BaseService {
             }
         }
         return null;
+    }
+
+    public static BookDTO getTargetBookObject(Integer userId, Integer bookId) {
+        Response response = ShoppingCartService.getCart(userId);
+        List<ShoppingCartResponseDTO> cart = response.jsonPath().getList("", ShoppingCartResponseDTO.class);
+        return ShoppingCartService.findBookByBookId(cart, bookId);
     }
 }

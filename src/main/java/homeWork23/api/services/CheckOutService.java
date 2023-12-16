@@ -9,9 +9,9 @@ public class CheckOutService extends BaseService {
         return setRequestSpec()
                 .given()
                 .header("Authorization", "Bearer " + token)
-                .pathParam("userId", userId)
+                .pathParam("getCreatedUserId", userId)
                 .body(checkOut)
-                .post("/CheckOut/{userId}");
+                .post("/CheckOut/{getCreatedUserId}");
     }
 }
 
