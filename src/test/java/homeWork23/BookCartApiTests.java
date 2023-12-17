@@ -1,10 +1,7 @@
 package homeWork23;
 
 import homeWork23.api.dto.*;
-import homeWork23.api.services.CheckOutService;
-import homeWork23.api.services.LoginService;
-import homeWork23.api.services.ShoppingCartService;
-import homeWork23.api.services.UserService;
+import homeWork23.api.services.*;
 import homeWork23.utils.HttpStatusCode;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -22,8 +19,6 @@ import static org.testng.Assert.*;
 
 public class BookCartApiTests {
 
-    final Integer bookId = 2;
-
     @Test
     public void createUserValidData() {
         Response response = UserService.createUser(randomUserData());
@@ -33,42 +28,43 @@ public class BookCartApiTests {
     @Test
     public void createUserEmptyRequiredValues() {
 
-        UserDTO user = emptyUserData();
+        UserDTO userDTO = emptyUserData();
 
-        Response response = UserService.createUser(user);
+        Response response = UserService.createUser(userDTO);
         assertEquals(response.getStatusCode(), HttpStatusCode.BAD_REQUEST.getCode());
     }
 
     @Test
     public void loginValidData() {
 
-        UserDTO user = randomUserData();
-        UserService.createUser(user);
+        UserDTO userDTO = randomUserData();
+        UserService.createUser(userDTO);
 
-        Response response = LoginService.loginUser(user);
+        Response response = LoginService.loginUser(userDTO);
         assertEquals(response.getStatusCode(), HttpStatusCode.OK.getCode());
 
         LoginResponseDTO loginResponse = response.as(LoginResponseDTO.class);
-        assertEquals(loginResponse.getUserDTO().getUsername(), user.getUsername());
+        assertEquals(loginResponse.getUserDTO().getUsername(), userDTO.getUsername());
         assertNotNull(loginResponse.getToken());
     }
 
     @Test
     public void loginUnexistingUser() {
 
-        UserDTO user = randomUserData();
+        UserDTO userDTO = randomUserData();
 
-        Response response = LoginService.loginUser(user);
+        Response response = LoginService.loginUser(userDTO);
         assertEquals(HttpStatusCode.UNAUTHORIZED.getCode(), response.getStatusCode());
     }
 
     @Test
     public void addToCartValidData() {
 
-        UserDTO user = randomUserData();
-        UserService.createUser(user);
+        UserDTO userDTO = randomUserData();
+        UserService.createUser(userDTO);
 
-        Integer userId = getCreatedUserId(LoginService.loginUser(user));
+        Integer userId = getCreatedUserId(LoginService.loginUser(userDTO));
+        Integer bookId = BookService.getBookId();
 
         Response response = ShoppingCartService.addToCart(userId, bookId);
         assertEquals(response.getStatusCode(), HttpStatusCode.OK.getCode());
@@ -79,6 +75,9 @@ public class BookCartApiTests {
 
     @Test
     public void addToCartUnexistingUser() {
+
+        Integer bookId = BookService.getBookId();
+
         Response response = ShoppingCartService.addToCart(randomIntId(), bookId);
 
         assertEquals(response.getStatusCode(), HttpStatusCode.NOT_FOUND.getCode());
@@ -88,16 +87,17 @@ public class BookCartApiTests {
     @Test
     public void getCart() {
 
-        UserDTO user = randomUserData();
-        UserService.createUser(user);
+        UserDTO userDTO = randomUserData();
+        UserService.createUser(userDTO);
 
-        Integer userId = getCreatedUserId(LoginService.loginUser(user));
+        Integer userId = getCreatedUserId(LoginService.loginUser(userDTO));
+        Integer bookId = BookService.getBookId();
+
         ShoppingCartService.addToCart(userId, bookId);
-
         Response response = ShoppingCartService.getCart(userId);
         assertEquals(HttpStatusCode.OK.getCode(), response.getStatusCode());
-        List<ShoppingCartResponseDTO> cart = response.jsonPath().getList("", ShoppingCartResponseDTO.class);
 
+        List<ShoppingCartResponseDTO> cart = response.jsonPath().getList("", ShoppingCartResponseDTO.class);
         assertNotNull(cart);
         assertTrue(containsBookIdInCart(cart, bookId));
     }
@@ -112,11 +112,12 @@ public class BookCartApiTests {
     @Test
     public void checkOut() {
 
-        UserDTO user = randomUserData();
-        UserService.createUser(user);
+        UserDTO userDTO = randomUserData();
+        UserService.createUser(userDTO);
 
-        Integer userId = getCreatedUserId(LoginService.loginUser(user));
-        String token = getCreatedUserToken(LoginService.loginUser(user));
+        Integer userId = getCreatedUserId(LoginService.loginUser(userDTO));
+        String token = getCreatedUserToken(LoginService.loginUser(userDTO));
+        Integer bookId = BookService.getBookId();
 
         ShoppingCartService.addToCart(userId, bookId);
         BookDTO targetBook = getTargetBookObject(userId, bookId);
@@ -132,10 +133,11 @@ public class BookCartApiTests {
         UserDTO user = randomUserData();
         UserService.createUser(user);
 
-        int userId = getCreatedUserId(LoginService.loginUser(user));
-        ShoppingCartService.addToCart(userId, bookId);
-
+        Integer userId = getCreatedUserId(LoginService.loginUser(user));
+        Integer bookId = BookService.getBookId();
         BookDTO targetBook = getTargetBookObject(userId, bookId);
+
+        ShoppingCartService.addToCart(userId, bookId);
 
         CheckOutDTO checkOut = checkoutBody(targetBook);
         Response response = CheckOutService.checkOut(userId, "", checkOut);

@@ -10,7 +10,8 @@ public class ShoppingCartService extends BaseService {
 
     public static Response addToCart(Integer userId, Integer bookId) {
         return setRequestSpec()
-                .given().pathParam("getCreatedUserId", String.valueOf(userId)).pathParam("bookId", bookId).post("/ShoppingCart/AddToCart/{getCreatedUserId}/{bookId}");
+                .given().pathParam("getCreatedUserId", String.valueOf(userId)).pathParam("bookId", bookId)
+                .post("/ShoppingCart/AddToCart/{getCreatedUserId}/{bookId}");
     }
 
     public static Response getCart(Integer userId) {
