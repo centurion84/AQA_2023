@@ -21,6 +21,10 @@ public class DataGenerator {
         return faker.name().firstName().toLowerCase() + "_" + faker.number().numberBetween(2, 99);
     }
 
+    public static String randomFullName() {
+        return faker.name().fullName();
+    }
+
     public static String randomLastName() {
         return faker.name().lastName();
     }
@@ -30,13 +34,20 @@ public class DataGenerator {
     }
 
     public static int randomIntId() {
-        return faker.number().numberBetween(1000, 9999);
+        return faker.number().numberBetween(100000, 999999);
     }
 
     public static String randomStringId() {
-        return String.valueOf(faker.number().numberBetween(1000, 9999));
+        return String.valueOf(faker.number().numberBetween(100000, 999999));
     }
 
+    public static String randomAddress() {
+        return faker.address().streetAddress();
+    }
+
+    public static String randomState() {
+        return faker.address().state();
+    }
 
     public static String currentFormattedTime() {
         ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
