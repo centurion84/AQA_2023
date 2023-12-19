@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class ShoppingCartResponseDTO {
+public class CartResponseDTO {
     private BookDTO book;
     private Integer quantity;
 }
