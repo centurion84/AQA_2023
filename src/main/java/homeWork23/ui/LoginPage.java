@@ -11,9 +11,7 @@ public class LoginPage {
     private final SelenideElement userNameInput = $("input[data-placeholder='Username']");
     private final SelenideElement userPasswordInput = $("input[data-placeholder='Password']");
     private final SelenideElement loginBtn = $("button.mat-raised-button.mat-primary");
-    private final SelenideElement shownUserName = $x("//span[@class='mat-button-wrapper' " +
-            "and mat-icon[@role='img'][@class='mat-icon notranslate material-icons mat-icon-no-color'][1] " +
-            "and mat-icon[@role='img'][@class='mat-icon notranslate material-icons mat-icon-no-color'][2]]");
+    private final SelenideElement shownUserName = $x("//span[@class='mat-button-wrapper' and count(mat-icon[@role='img'])=2]");
 
     public HomePage performLogin(String userName, String userPassword) {
         userNameInput.setValue(userName);

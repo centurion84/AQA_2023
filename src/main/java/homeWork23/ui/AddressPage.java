@@ -8,10 +8,10 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class AddressPage {
 
-    private final SelenideElement bookTitleInOrder = $("td a[href*='/books/details/']");
-    private final SelenideElement bookPriceInOrder = $("tr.ng-star-inserted td:nth-child(4)");
-    private final SelenideElement totalPriceInOrder = $("tr.ng-star-inserted td:nth-child(4)");
-    private final SelenideElement bookQuantityInOrder = $("table.table tr.ng-star-inserted td:nth-child(2)");
+    public final SelenideElement bookTitleInOrder = $("td a[href*='/books/details/']");
+    public final SelenideElement bookPriceInOrder = $("tr.ng-star-inserted td:nth-child(4)");
+    public final SelenideElement totalPriceInOrder = $("tr.ng-star-inserted td:nth-child(4)");
+    public final SelenideElement bookQuantityInOrder = $("table.table tr.ng-star-inserted td:nth-child(2)");
     private final SelenideElement nameInput = $("input[formcontrolname='name']");
     private final SelenideElement address1Input = $("input[formcontrolname='addressLine1']");
     private final SelenideElement address2Input = $("input[formcontrolname='addressLine2']");
@@ -30,18 +30,6 @@ public class AddressPage {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public boolean isOrderOnAddressPageCorrect(String bookTitle, String bookPrice) {
-        bookTitleInOrder.shouldBe(visible);
-        String title = bookTitleInOrder.getText();
-        String price = bookPriceInOrder.getText();
-        String totalPrice = totalPriceInOrder.getText();
-        String quantity = bookQuantityInOrder.getText();
-        return title.equals(bookTitle) &&
-                price.equals(bookPrice) &&
-                totalPrice.equals(bookPrice) &&
-                quantity.equals("1");
     }
 
     public AddressPage fillAddressDetails(String name, String address1, String address2, String pinCode, String state) {

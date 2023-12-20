@@ -13,7 +13,6 @@ import java.util.List;
 
 import static homeWork23.api.services.helpers.BookServiceHelper.getBookId;
 import static homeWork23.api.services.helpers.CartServiceHelper.getTargetBookObject;
-import static homeWork23.api.services.helpers.CartServiceHelper.isBookInCartDataCorrect;
 import static homeWork23.utils.DataGenerator.randomIntId;
 import static homeWork23.utils.TestData.*;
 import static org.testng.Assert.*;
@@ -101,8 +100,8 @@ public class BookCartApiTests {
         assertEquals(HttpStatusCode.OK.getCode(), response.getStatusCode());
 
         List<CartResponseDTO> booksInCart = response.jsonPath().getList("", CartResponseDTO.class);
-        assertTrue(isBookInCartDataCorrect(booksInCart, targetBook));
         assertEquals(booksInCart.size(), 1);
+        assertEquals(booksInCart.get(0).getBook(), targetBook);
     }
 
     @Test
