@@ -10,6 +10,7 @@ import java.util.Collections;
 import static homeWork23.utils.DataGenerator.*;
 
 public class TestData {
+
     public static UserDTO randomUserData() {
         return UserDTO.builder()
                 .userId(0)

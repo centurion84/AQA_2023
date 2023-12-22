@@ -5,8 +5,10 @@ import homeWork23.api.services.CartService;
 import homeWork23.api.services.CheckOutService;
 import homeWork23.api.services.LoginService;
 import homeWork23.api.services.UserService;
+import homeWork23.listeners.TestListener;
 import homeWork23.utils.HttpStatusCode;
 import io.restassured.response.Response;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -17,7 +19,7 @@ import static homeWork23.utils.DataGenerator.randomIntId;
 import static homeWork23.utils.TestData.*;
 import static org.testng.Assert.*;
 
-
+@Listeners(TestListener.class)
 public class BookCartApiTests {
 
     @Test
