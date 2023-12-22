@@ -1,6 +1,7 @@
 package homeWork23.ui;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -32,6 +33,7 @@ public class AddressPage {
         }
     }
 
+    @Step("Fill address data for order")
     public AddressPage fillAddressDetails(String name, String address1, String address2, String pinCode, String state) {
         nameInput.setValue(name);
         address1Input.setValue(address1);
@@ -41,6 +43,7 @@ public class AddressPage {
         return this;
     }
 
+    @Step("Make an order")
     public OrdersPage placeOrder() {
         placeOrderBtn.click();
         return new OrdersPage();

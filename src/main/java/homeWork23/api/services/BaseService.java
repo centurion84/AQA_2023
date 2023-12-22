@@ -1,5 +1,6 @@
 package homeWork23.api.services;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
@@ -12,6 +13,7 @@ public class BaseService {
                 .setBaseUri(BASE_URL)
                 .setContentType("application/json")
                 .setAccept("application/json")
+                .addFilter(new AllureRestAssured())
                 .build();
     }
 

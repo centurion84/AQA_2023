@@ -1,6 +1,7 @@
 package homeWork23.ui;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Condition.text;
@@ -25,17 +26,20 @@ public class HomePage {
         return new LoginPage();
     }
 
+    @Step("Search book")
     public HomePage searchForBook(String bookName) {
         searchBox.setValue(bookName);
         confirmSearch.click();
         return this;
     }
 
+    @Step("Add book to cart")
     public HomePage addBookToCart() {
         addToCartBtn.click();
         return this;
     }
 
+    @Step("Go to cart")
     public CartPage goToCart() {
         WebElement element = cartBtn.toWebElement();
         executeJavaScript("arguments[0].click();", element);

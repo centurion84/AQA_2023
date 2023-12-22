@@ -82,6 +82,7 @@ $RECYCLE.BIN/
 *.lnk
 ### Allure reports files
 allure-results/
+/.allure
 ### Maven template
 target/
 pom.xml.tag

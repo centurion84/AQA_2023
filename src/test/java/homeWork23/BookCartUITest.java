@@ -9,6 +9,7 @@ import homeWork23.ui.HomePage;
 import homeWork23.ui.OrdersPage;
 import homeWork23.utils.BaseUITest;
 import homeWork23.utils.DataGenerator;
+import jdk.jfr.Description;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -20,6 +21,7 @@ import static org.testng.Assert.*;
 public class BookCartUITest extends BaseUITest {
 
     @Test
+    @Description("Login and buy a book")
     public void bookPurchaseTest() {
 
         // create user via API and get credentials
